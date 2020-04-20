@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Configurator));
             this.lblWelcome = new MaterialSkin.Controls.MaterialLabel();
             this.lblSelectPls = new MaterialSkin.Controls.MaterialLabel();
             this.txtFolderPath = new MaterialSkin.Controls.MaterialTextBox();
@@ -227,6 +228,7 @@
             this.Controls.Add(this.txtFolderPath);
             this.Controls.Add(this.lblSelectPls);
             this.Controls.Add(this.lblWelcome);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Configurator";
             this.Sizable = false;

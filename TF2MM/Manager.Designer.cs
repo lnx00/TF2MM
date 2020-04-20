@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Manager));
             this.theTabControl = new MaterialSkin.Controls.MaterialTabControl();
             this.tpManager = new System.Windows.Forms.TabPage();
             this.btnOpenFolder = new MaterialSkin.Controls.MaterialButton();
@@ -240,7 +241,7 @@
             // renameToolStripMenuItem
             // 
             this.renameToolStripMenuItem.Name = "renameToolStripMenuItem";
-            this.renameToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.renameToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.renameToolStripMenuItem.Text = "Rename...";
             this.renameToolStripMenuItem.Click += new System.EventHandler(this.renameToolStripMenuItem_Click);
             // 
@@ -412,6 +413,7 @@
             this.ClientSize = new System.Drawing.Size(927, 609);
             this.Controls.Add(this.theTabControl);
             this.DrawerTabControl = this.theTabControl;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Manager";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TF2 Mod Manager";
