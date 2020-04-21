@@ -47,6 +47,7 @@ namespace TF2MM.Core
                 case "application/rar":
                 case "application/x-7z-compressed":
                 case "application/x-zip-compressed":
+                case "application/zip":
                     modInstaller.InstallFile(tfDir, FileType.ARCHIVE, modPath);
                     break;
 
