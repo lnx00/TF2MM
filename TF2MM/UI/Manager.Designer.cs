@@ -55,6 +55,7 @@
             this.materialCheckbox8 = new MaterialSkin.Controls.MaterialCheckbox();
             this.materialCheckbox9 = new MaterialSkin.Controls.MaterialCheckbox();
             this.modInstallDialog = new System.Windows.Forms.OpenFileDialog();
+            this.infoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.theTabControl.SuspendLayout();
             this.tpManager.SuspendLayout();
             this.modContextMenu.SuspendLayout();
@@ -203,45 +204,46 @@
             this.modContextMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(242)))));
             this.modContextMenu.Depth = 0;
             this.modContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.installToolStripMenuItem,
-            this.reloadToolStripMenuItem,
-            this.toolStripMenuItem1,
+            this.infoToolStripMenuItem,
+            this.renameToolStripMenuItem,
             this.deleteToolStripMenuItem,
-            this.renameToolStripMenuItem});
+            this.toolStripMenuItem1,
+            this.installToolStripMenuItem,
+            this.reloadToolStripMenuItem});
             this.modContextMenu.MouseState = MaterialSkin.MouseState.HOVER;
             this.modContextMenu.Name = "modContextMenu";
-            this.modContextMenu.Size = new System.Drawing.Size(127, 98);
+            this.modContextMenu.Size = new System.Drawing.Size(181, 142);
             // 
             // installToolStripMenuItem
             // 
             this.installToolStripMenuItem.Name = "installToolStripMenuItem";
-            this.installToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.installToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.installToolStripMenuItem.Text = "Install...";
             this.installToolStripMenuItem.Click += new System.EventHandler(this.installToolStripMenuItem_Click);
             // 
             // reloadToolStripMenuItem
             // 
             this.reloadToolStripMenuItem.Name = "reloadToolStripMenuItem";
-            this.reloadToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.reloadToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.reloadToolStripMenuItem.Text = "Reload";
             this.reloadToolStripMenuItem.Click += new System.EventHandler(this.reloadToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(123, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // renameToolStripMenuItem
             // 
             this.renameToolStripMenuItem.Name = "renameToolStripMenuItem";
-            this.renameToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.renameToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.renameToolStripMenuItem.Text = "Rename...";
             this.renameToolStripMenuItem.Click += new System.EventHandler(this.renameToolStripMenuItem_Click);
             // 
@@ -406,6 +408,13 @@
             this.modInstallDialog.FileName = "file.vpk";
             this.modInstallDialog.Filter = "VPK-Files|*.vpk|Archive|*.zip;*.rar;*.7z";
             // 
+            // infoToolStripMenuItem
+            // 
+            this.infoToolStripMenuItem.Name = "infoToolStripMenuItem";
+            this.infoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.infoToolStripMenuItem.Text = "Info";
+            this.infoToolStripMenuItem.Click += new System.EventHandler(this.infoToolStripMenuItem_Click);
+            // 
             // Manager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -456,5 +465,6 @@
         private MaterialSkin.Controls.MaterialLabel lblStatus;
         private MaterialSkin.Controls.MaterialButton btnDownload;
         private MaterialSkin.Controls.MaterialButton btnOpenFolder;
+        private System.Windows.Forms.ToolStripMenuItem infoToolStripMenuItem;
     }
 }

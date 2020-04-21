@@ -252,5 +252,19 @@ namespace TF2MM
 
             RenameMod(mod);
         }
+
+        private void infoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem contextItem = sender as ToolStripMenuItem;
+            if (contextItem == null) { return; }
+            MaterialContextMenuStrip contextMenu = contextItem.Owner as MaterialContextMenuStrip;
+            if (contextMenu == null) { return; }
+            MaterialCheckbox parentCheckbox = contextMenu.SourceControl as MaterialCheckbox;
+            if (parentCheckbox == null) { return; }
+            ModFile mod = parentCheckbox.Tag as ModFile;
+            if (mod == null) { return; }
+
+            MessageBox.Show("Mod Info");
+        }
     }
 }
