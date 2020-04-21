@@ -26,7 +26,7 @@ namespace TF2MM.Core
         {
             CheckRequest(tfPath, modPath);
 
-            File.Copy(modPath, FileSystem.GetCustomDir(tfPath) + @"\" + Path.GetFileName(modPath));
+            File.Copy(modPath, FileSystem.GetCustomDir(tfPath) + @"\" + Path.GetFileNameWithoutExtension(modPath) + ".vpk");
         }
 
         public void UpdateMod(string tfPath, string modPath)

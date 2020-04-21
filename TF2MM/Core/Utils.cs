@@ -17,6 +17,7 @@ namespace TF2MM
             string[] enabledFiles = Directory.GetFiles(FileSystem.GetCustomDir(tfDir), "*.vpk");
             string[] disabledFiles = Directory.GetFiles(FileSystem.GetDisabledDir(tfDir), "*.vpk");
 
+            // Get all enabled Mods
             foreach (string file in enabledFiles)
             {
                 string fileName = Path.GetFileNameWithoutExtension(file);
@@ -31,6 +32,7 @@ namespace TF2MM
                 modList.Add(mod);
             }
 
+            // Get all disabled Mods
             foreach (string file in disabledFiles)
             {
                 string fileName = Path.GetFileNameWithoutExtension(file);

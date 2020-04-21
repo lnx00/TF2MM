@@ -93,7 +93,7 @@ namespace TF2MM
 
         private void btnConfig_Click(object sender, EventArgs e)
         {
-            Configurator config = new Configurator();
+            Configurator config = new Configurator(tfDirectory);
             config.ShowDialog();
             LoadConfig();
         }
@@ -213,24 +213,23 @@ namespace TF2MM
             ReloadModlist();
         }
 
-        private void btnDownload_Click(object sender, EventArgs e)
+        private async void btnDownload_Click(object sender, EventArgs e)
         {
             InputDialog dialog = new InputDialog("Enter the direct URL to the mod:", "Download URL");
             dialog.ShowDialog();
             if (dialog.DialogResult == DialogResult.OK)
             {
-                string url = dialog.InputText;
-
                 try
                 {
-                    using (WebClient client = new WebClient())
-                    {
-                        client.DownloadFile(url, FileSystem.GetTempDir(tfDirectory) + @"\file.dat");
-                    }
-                } catch (Exception)
+                    string url = dialog.InputText;
+                    await downloadHelper.DownloadFile(tfDirectory, url);
+                    await Task.Delay(5000);
+                } catch (Exception ex)
                 {
-                    MessageBox.Show("The mod couldn't be downloaded.", "Download failed");
+                    MessageBox.Show("The mod couldn't be downloaded:\n" + ex.Message, "Download failed");
                 }
+
+                ReloadModlist();
             }
         }
 
@@ -264,7 +263,11 @@ namespace TF2MM
             ModFile mod = parentCheckbox.Tag as ModFile;
             if (mod == null) { return; }
 
-            MessageBox.Show("Mod Info");
+            MessageBox.Show("Information about this mod:\n\n" +
+                "Name: " + mod.Name + "\n" +
+                "Activate: " + mod.Active.ToString() + "\n" +
+                "Path: " + mod.Path,
+                "Mod Info");
         }
     }
 }

@@ -70,6 +70,7 @@
   <ItemGroup>
     <Compile Include="Core\DownloadHelper.cs" />
     <Compile Include="Core\FileSystem.cs" />
+    <Compile Include="Core\Installer.cs" />
     <Compile Include="Core\ModHelper.cs" />
     <Compile Include="UI\Configurator.cs">
       <SubType>Form</SubType>

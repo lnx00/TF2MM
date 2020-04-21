@@ -234,6 +234,7 @@
             this.Sizable = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TF2 Mod Manager";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Configurator_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
