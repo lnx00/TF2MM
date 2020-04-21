@@ -12,12 +12,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MaterialSkin;
 using MaterialSkin.Controls;
+using TF2MM.Core;
 
 namespace TF2MM
 {
     public partial class Manager : MaterialForm
     {
-        private Utils utils = new Utils();
+        private ModHelper modHelper = new ModHelper();
+        private DownloadHelper downloadHelper = new DownloadHelper();
 
         public string tfDirectory = "";
 
@@ -56,7 +58,7 @@ namespace TF2MM
         public void ReloadModlist()
         {
             modList.Items.Clear();
-            List<ModFile> mods = utils.GetModList(utils.GetCustomDir(tfDirectory));
+            List<ModFile> mods = Utils.GetModList(tfDirectory);
             foreach (ModFile mod in mods)
             {
                 MaterialCheckbox checkbox = new MaterialCheckbox
@@ -80,9 +82,12 @@ namespace TF2MM
             ModFile mod = checkbox.Tag as ModFile;
             if (mod == null) { return; }
 
-            if (!utils.ToggleMod(mod, checkbox.Checked))
+            try
             {
-                MessageBox.Show("The mod couldn't be " + ((checkbox.Checked) ? "enabled" : "disabled") + ". Please close the game first!");
+                modHelper.SetActive(mod, checkbox.Checked);
+            } catch (Exception ex)
+            {
+                MessageBox.Show("The mod couldn't be " + ((checkbox.Checked) ? "enabled" : "disabled") + ". Please make sure that the game is closed!\n" + ex.Message);
             }
         }
 
@@ -100,7 +105,7 @@ namespace TF2MM
 
         private void Manager_Load(object sender, EventArgs e)
         {
-            if (utils.IsGameDir(tfDirectory))
+            if (FileSystem.IsGameDir(tfDirectory))
             {
                 ReloadModlist();
             }
@@ -131,43 +136,53 @@ namespace TF2MM
             {
                 try
                 {
-                    if (File.Exists(utils.GetCustomDir(tfDirectory) + @"\" + modInstallDialog.SafeFileName))
+                    if (modHelper.IsInstalled(tfDirectory, modInstallDialog.FileName))
                     {
-                        if (MessageBox.Show("This mod already exists! Do you want to update it?", "Overwrite Mod", MessageBoxButtons.YesNoCancel) == DialogResult.Yes)
+                        if (MessageBox.Show("This mod already exists! Do you want to update it?", "Update Mod", MessageBoxButtons.YesNoCancel) == DialogResult.Yes)
                         {
-                            File.Copy(modInstallDialog.FileName, utils.GetCustomDir(tfDirectory) + @"\" + modInstallDialog.SafeFileName, true);
-                            SetStatus("Mod updated");
-                            ReloadModlist();
+                            modHelper.UpdateMod(tfDirectory, modInstallDialog.FileName);
+                        }
+                        else
+                        {
+                            modHelper.InstallMod(tfDirectory, modInstallDialog.FileName);
                         }
                     }
                     else
                     {
-                        File.Copy(modInstallDialog.FileName, utils.GetCustomDir(tfDirectory) + @"\" + modInstallDialog.SafeFileName);
-                        SetStatus("Mod installed");
-                        ReloadModlist();
+                        modHelper.InstallMod(tfDirectory, modInstallDialog.FileName);
                     }
-                }
-                catch (Exception)
+
+                    ReloadModlist();
+                    SetStatus("Mod installed succesfully");
+                } catch (Exception ex)
                 {
-                    MessageBox.Show("The mod couln't be installed!", "Installation failed");
+                    MessageBox.Show("The mod couldn't be installed!\n" + ex.Message);
+                    return;
                 }
             }
         }
 
         private void DeleteMod(ModFile mod)
         {
-            if (MessageBox.Show("Do you really want to delete '" + mod.Name + "'?", "Delete Mod", MessageBoxButtons.YesNoCancel) == DialogResult.Yes)
+            DialogResult result = MessageBox.Show("Do you want to create a backup before deleting '" + mod.Name + "'?", "Delete Mod", MessageBoxButtons.YesNoCancel);
+            try
             {
-                try
+                if (result == DialogResult.Yes)
                 {
-                    File.Delete(mod.File);
-                    SetStatus("Deleted " + mod.Name);
-                    ReloadModlist();
+                    modHelper.BackupMod(mod);
+                    modHelper.DeleteMod(mod);
                 }
-                catch (Exception)
+                else if (result == DialogResult.No)
                 {
-                    MessageBox.Show("The mod couln't be deleted. Please close the game first!");
+                    modHelper.DeleteMod(mod);
                 }
+
+                ReloadModlist();
+                SetStatus("Mod " + mod.Name + " deleted");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("The mod couln't be deleted. Please close the game first!");
             }
         }
 
@@ -178,7 +193,7 @@ namespace TF2MM
             if (dialog.DialogResult == DialogResult.OK)
             {
                 string fileName = dialog.InputText;
-                File.Move(mod.File, Path.GetDirectoryName(mod.File) + @"\" + fileName + ((mod.Active) ? ".vpk" : ".vpk.disabled"));
+                File.Move(mod.Path, Path.GetDirectoryName(mod.Path) + @"\" + fileName + ((mod.Active) ? ".vpk" : ".vpk.disabled"));
                 ReloadModlist();
             }
         }
@@ -210,7 +225,7 @@ namespace TF2MM
                 {
                     using (WebClient client = new WebClient())
                     {
-                        client.DownloadFile(url, utils.GetTempDir(tfDirectory) + @"\file.dat");
+                        client.DownloadFile(url, FileSystem.GetTempDir(tfDirectory) + @"\file.dat");
                     }
                 } catch (Exception)
                 {
@@ -221,7 +236,7 @@ namespace TF2MM
 
         private void btnOpenFolder_Click(object sender, EventArgs e)
         {
-            Process.Start(utils.GetCustomDir(tfDirectory));
+            Process.Start(FileSystem.GetCustomDir(tfDirectory));
         }
 
         private void renameToolStripMenuItem_Click(object sender, EventArgs e)

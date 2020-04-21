@@ -11,7 +11,9 @@ namespace TF2MM
 
         public string Name { get; set; }
 
-        public string File { get; set; }
+        public string Path { get; set; }
+
+        public string TFDir { get; set; }
 
         public bool Active { get; set; }
 
@@ -20,10 +22,11 @@ namespace TF2MM
 
         }
 
-        public ModFile(string pName, string pFile, bool pActive)
+        public ModFile(string pName, string pPath, string pTFDir, bool pActive)
         {
             Name = pName;
-            File = pFile;
+            Path = pPath;
+            TFDir = pTFDir;
             Active = pActive;
         }
 

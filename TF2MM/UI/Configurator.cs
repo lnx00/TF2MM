@@ -8,13 +8,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TF2MM.Core;
 
 namespace TF2MM
 {
     public partial class Configurator : MaterialSkin.Controls.MaterialForm
     {
-        Utils utils = new Utils();
-
         public Configurator()
         {
             InitializeComponent();
@@ -23,7 +22,7 @@ namespace TF2MM
         private void btnContinue_Click(object sender, EventArgs e)
         {
             string dir = txtFolderPath.Text;
-            if (utils.IsGameDir(dir))
+            if (FileSystem.IsGameDir(dir))
             {
                 Properties.Settings.Default.tfPath = dir;
                 Properties.Settings.Default.Save();

@@ -404,7 +404,7 @@
             // modInstallDialog
             // 
             this.modInstallDialog.FileName = "file.vpk";
-            this.modInstallDialog.Filter = "VPK-Files|*.vpk";
+            this.modInstallDialog.Filter = "VPK-Files|*.vpk|Archive|*.zip;*.rar;*.7z";
             // 
             // Manager
             // 
